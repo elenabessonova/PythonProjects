@@ -2,7 +2,7 @@
 import sqlite3
 from congratulator.db_controller.sql_wrapper import SQLiteWrapper
 import os
-from congratulator.common.loger_config import loger
+from congratulator.common.logger_config import logger
 
 
 def configure_db(connection_db):
@@ -23,7 +23,7 @@ def load_users():
     conn = sqlite3.connect(db_name)
     with SQLiteWrapper(conn) as obj:
         configure_db(conn)
-        loger.info(f'Data base {db_name} is configured')
+        logger.info(f'Data base {db_name} is configured')
 
         obj.execute("INSERT INTO USERS (ID, NAME, SURNAME, BIRTHDAY, EMAIL)"
                     "VALUES (1, 'Elena', 'B.', '22.11', 'lena_bess@list.ru')")
@@ -31,3 +31,7 @@ def load_users():
                     "VALUES (2, 'Tatiana', 'M.', '24.11', 'bessonov@bk.ru')")
 
         return obj.select('SELECT name, birthday, email FROM USERS')
+
+
+if __name__ == '__main__':
+    load_users()
