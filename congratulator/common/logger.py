@@ -1,27 +1,16 @@
-class Logger:
-    '''
-    High loging level 'debug' - print all messages
-    Low loging level  'info'  - print only info messages
-    '''
-    def __init__(self, level):
-        self._level = level
-
-    def debug(self, msg):
-        if self._level == 'debug':
-            print(msg)
-            return msg
-        else:
-            return ''
-
-    def info(self, msg):
-        if self._level == 'info' or self._level == 'debug':
-            print(msg)
-            return msg
-        else:
-            return ''
+import logging
+import os
 
 
-if __name__ == '__main__':
-    logger = Logger('info')
-    logger.debug('debug msg')
-    logger.info('info msg')
+logger = logging.getLogger('congratulator')
+logger.setLevel(logging.DEBUG)
+
+logfilepath = os.path.dirname(os.path.dirname(__file__))
+logfile = os.path.join(logfilepath, 'congratulator.log')
+
+file_handler = logging.FileHandler(logfile)
+
+formatter = logging.Formatter('%(asctime)s: %(name)s: %(levelname)s: %(message)s')
+file_handler.setFormatter(formatter)
+
+logger.addHandler(file_handler)
