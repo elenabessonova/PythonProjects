@@ -1,0 +1,7 @@
+os
+schedule>=1.1.0
+datetime
+time
+sqlite3
+smtplib
+email

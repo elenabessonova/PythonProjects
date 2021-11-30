@@ -1,15 +1,14 @@
 import datetime as dt
 from db_controller import db_configure
+from db_controller import db_create
 from mail_controller import mail_sender
 from common.logger import logger as log
 import os
 
 
-def make_congratulation():
-    congrat_path = os.path.dirname(os.path.dirname(__file__))
-    user_list = db_configure.load_users(os.path.join(congrat_path, 'db_congrats.db'))
+def make_congratulation(db_user_list):
     today = dt.date.today()
-    for user in user_list:
+    for user in db_user_list:
         date = dt.datetime.strptime(user[1], '%d.%m')
         log.debug(f'date {date.day}.{date.month}, today {today}')
 
@@ -20,4 +19,4 @@ def make_congratulation():
 
 
 if __name__ == '__main__':
-    make_congratulation()
+    make_congratulation(db_create.db_create('congrats.db'))
