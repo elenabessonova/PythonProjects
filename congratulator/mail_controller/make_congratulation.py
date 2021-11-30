@@ -2,10 +2,12 @@ import datetime as dt
 from db_controller import db_configure
 from mail_controller import mail_sender
 from common.logger import logger as log
+import os
 
 
 def make_congratulation():
-    user_list = db_configure.load_users()
+    congrat_path = os.path.dirname(os.path.dirname(__file__))
+    user_list = db_configure.load_users(os.path.join(congrat_path, 'db_congrats.db'))
     today = dt.date.today()
     for user in user_list:
         date = dt.datetime.strptime(user[1], '%d.%m')

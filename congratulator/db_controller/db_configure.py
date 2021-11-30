@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import sqlite3
-from congratulator.db_controller.sql_wrapper import SQLiteWrapper
+from db_controller.sql_wrapper import SQLiteWrapper
 import os
 from common.logger import logger as log
+import env
 
 
 def configure_db(connection_db):
@@ -15,8 +16,7 @@ def configure_db(connection_db):
                 '     EMAIL    TEXT               NOT NULL);')
 
 
-def load_users():
-    db_name = 'congrats_db.db'
+def load_users(db_name):
     db_exists = os.path.exists(db_name)
     if db_exists:
         os.remove(db_name)
